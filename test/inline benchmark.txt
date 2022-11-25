@@ -1,0 +1,13 @@
+# w/o inline
+RAM:   [=         ]   5.8% (used 475 bytes from 8192 bytes)
+Flash: [          ]   3.0% (used 7584 bytes from 253952 bytes)
+
+firmware.hex  24,576 bytes
+firmware.elf  65,536 bytes
+
+# w/ inline
+RAM:   [=         ]   5.8% (used 475 bytes from 8192 bytes)
+Flash: [          ]   2.8% (used 7192 bytes from 253952 bytes)  # Savings of 392 bytes
+
+firmware.hex  20,480 bytes  # Savings of 4096 bytes
+firmware.elf  61,440 bytes  # Savings of 4096 bytes
