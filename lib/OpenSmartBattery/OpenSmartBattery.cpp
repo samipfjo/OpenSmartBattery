@@ -43,6 +43,7 @@ namespace OpenSmartBattery {
 
         inline uint8_t x01_BatteryCapacityAlarm(uint8_t *buff) {
             // TODO
+
             buff[0] = 0x94;
             buff[1] = 0x02;
 
@@ -51,6 +52,7 @@ namespace OpenSmartBattery {
 
         inline uint8_t x02_RemainingTimeAlarm(uint8_t *buff) {
             // TODO
+
             buff[0] = 0x0A;
             buff[1] = 0x00;
 
@@ -77,6 +79,7 @@ namespace OpenSmartBattery {
 
         inline uint8_t x05_AtRateTimeToFull(uint8_t *buff) {
             // TODO
+
             buff[0] = 0x00;
             buff[1] = 0x00;
 
@@ -85,6 +88,7 @@ namespace OpenSmartBattery {
 
         inline uint8_t x06_AtRateTimeToEmpty(uint8_t *buff) {
             // TODO
+
             buff[0] = 0xff;
             buff[1] = 0xff;
 
@@ -97,6 +101,8 @@ namespace OpenSmartBattery {
         }
 
         inline uint8_t x07_AtRateOK(uint8_t *buff) {
+            // TODO
+
             buff[0] = 0x01;
             buff[1] = 0x00;
 
@@ -115,7 +121,7 @@ namespace OpenSmartBattery {
 
         inline uint8_t x09_Voltage(uint8_t *buff) {
             // TODO
-            // 
+
             uint8_t lower, higher;
 
             Utils::splitNum(Utils::V_HIGH, &higher, &lower);
@@ -154,6 +160,7 @@ namespace OpenSmartBattery {
 
         inline uint8_t x0c_MaxError(uint8_t *buff) {
             // TODO
+
             buff[0] = 0x00;
             buff[1] = 0x00;
 
@@ -233,7 +240,7 @@ namespace OpenSmartBattery {
         }
 
         inline uint8_t x14_ChargingCurrentRequested(uint8_t *buff) {
-            // TODO : This should ramp off near full capacity
+            // TODO :: implement CC/CV charging
 
             if (BATTERY_STATUS.canCharge() && POWER_STATE == Utils::PowerState::charging) {
                 uint8_t lower, higher;
@@ -251,7 +258,7 @@ namespace OpenSmartBattery {
         }
 
         inline uint8_t x15_ChargingVoltageRequested(uint8_t *buff) {
-            // We use constant-voltage charging, so this won't change
+            // TODO :: implement CC/CV charging
 
             if (BATTERY_STATUS.canCharge() && POWER_STATE == Utils::PowerState::charging) {
                 uint8_t lower, higher;
@@ -308,8 +315,6 @@ namespace OpenSmartBattery {
         }
 
         inline uint8_t x1a_SpecificationInfo(uint8_t *buff) {
-            // TODO : ?
-
             buff[0] = 0b00110001;
             buff[1] = 0b00000000;
 
@@ -371,7 +376,7 @@ namespace OpenSmartBattery {
         }
 
         inline uint8_t x23_ManufacturerData(uint8_t *buff) {
-            // TODO : Provide a way to customize this
+            // TODO : Provide a way to customize this? Probably not necessary.
 
             buff[0] = 0x00;
             buff[1] = 0x00;
