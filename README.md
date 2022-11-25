@@ -2,7 +2,7 @@
  Open-source smart battery firmware for ATtiny84
 
 ### About
-This started as a soft fork of [iam4722202468's ThinkpadBattery project](https://github.com/iam4722202468/ThinkpadBattery), but after sending a few pull requests I decided to do more or less a complete rewrite.
+This started as a soft fork of [iam4722202468's ThinkpadBattery project](https://github.com/iam4722202468/ThinkpadBattery), but after sending a few pull requests I decided to do a (more or less) complete rewrite.
 
 **Like `ThinkpadBattery`, OpenSmartBattery is still signifcantly lacking in basic functionality and should be considered alpha or pre-alpha in its current state**
 
