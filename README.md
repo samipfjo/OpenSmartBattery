@@ -4,7 +4,7 @@
 ### About
 This started as a soft fork of [iam4722202468's ThinkpadBattery project](https://github.com/iam4722202468/ThinkpadBattery), but after sending a few pull requests I decided to do a (more or less) complete rewrite.
 
-**Like `ThinkpadBattery`, OpenSmartBattery is still signifcantly lacking in basic functionality and should be considered alpha or pre-alpha in its current state**
+**Like `ThinkpadBattery`, OpenSmartBattery is still signifcantly lacking in basic functionality and should be considered alpha or pre-alpha in its current state. I will continue adding features when time allows. Pull requests are welcome!**
 
 ### Configuration
 Configuration of most values is done in `lib/OpenSmartBattery/config.hpp`. `config::HardwareConfig::Pins` should give you a good idea of the hardware configuration needed until I get around to writing a guide.
