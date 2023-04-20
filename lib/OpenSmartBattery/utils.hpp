@@ -29,12 +29,6 @@ namespace OpenSmartBattery {
         static void addByteToCRC(bool CRC[8], uint8_t byteToAdd);
 
         // ----
-        enum PowerState: uint8_t {
-            charging    = 0,
-            discharging = 1,
-            idling      = 2
-        };
-
         enum AlarmErrorCode: uint8_t {
             Ok                  = 0b0000,
             Busy                = 0b0001,
@@ -84,6 +78,36 @@ namespace OpenSmartBattery {
 
                 inline bool canDischarge() {
                     return !(fullyDischarged || overTempAlarm);  // terminateDischargeAlarm says "as soon as possible" not "immediately"
+                }
+
+                
+        };
+
+        // ----
+        enum PowerState: uint8_t {
+            charging    = 0,
+            discharging = 1,
+            idling      = 2
+        };
+
+        class PowerInfo {
+            public:
+                PowerState state;
+
+                PowerInfo();
+                uint16_t currentSoC(double, uint8_t);
+                uint16_t currentSoD(double, uint8_t);
+            
+            private:
+                double const poly0C[7]  = { 1913758.2264478677, -1463912.256317679,  591147.2507711524,  -132996.78970971872, 15814.931170576181, -776.935231649212,  -1030840.8807889677 };
+                double const polyP2C[7] = { 1913758.2264478677, -1463912.256317679,  591147.2507711524,  -132996.78970971872, 15814.931170576181, -776.935231649212,  -1030840.8807889677 };
+                double const polyP5C[7] = { 1913758.2264478677, -1463912.256317679,  591147.2507711524,  -132996.78970971872, 15814.931170576181, -776.935231649212,  -1030840.8807889677 };
+                double const poly1C[7]  = { 1913758.2264478677, -1463912.256317679,  591147.2507711524,  -132996.78970971872, 15814.931170576181, -776.935231649212,  -1030840.8807889677 };
+                double const poly2C[7]  = { 13949856.394182961, -10205011.518756365, 3970805.4003325477, -866681.8991519012,  100602.35716141616, -4851.730949323192, -7924345.134894649  };
+
+                uint16_t do_poly(double cell_voltage, const double* poly) {
+                    return (poly[0] * cell_voltage) + (poly[1] * pow(cell_voltage, 2)) + (poly[2] * pow(cell_voltage, 3)) +\
+                           (poly[3] * pow(cell_voltage, 4)) + (poly[4] * pow(cell_voltage, 5)) + (poly[5] * pow(cell_voltage, 6)) + poly[6];
                 }
         };
     }

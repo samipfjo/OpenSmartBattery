@@ -2,6 +2,7 @@
 #include "config.hpp"
 #include <stdint.h>
 #include <string.h>
+#include <math.h>
 
 #include <SoftwareSerial.h>
 #include <Print.h>
@@ -257,6 +258,37 @@ namespace OpenSmartBattery {
                 (overchargedAlarm << 15)),
                 higher, lower
             );
+        }
+
+        // ========
+        PowerInfo::PowerInfo() {
+            state = PowerState::idling;
+        }
+
+        uint16_t PowerInfo::currentSoC(double currentVoltage, uint8_t loadInCx10) {
+            // Approx. SoC formula: -170.87 sin(x) + 205.231 cos(x) + 3439.57 (periodic)
+            // We know the current voltage and the cu
+            
+            switch (loadInCx10) {
+                case 0:  return do_poly(currentVoltage, PowerInfo::poly0C);
+                case 2:  return do_poly(currentVoltage, PowerInfo::polyP2C);
+                case 5:  return do_poly(currentVoltage, PowerInfo::polyP5C);
+                case 10: return do_poly(currentVoltage, PowerInfo::poly1C);
+                case 15:
+                    return round(do_poly(currentVoltage, poly1C) / do_poly(currentVoltage, poly2C));
+
+                case 20:
+                    if (currentVoltage >= 3.995) { return 0; }
+                    if (currentVoltage <= 3.06)  { return round(100.0 - ((currentVoltage * 100) - 300)); }
+                    return do_poly(currentVoltage, poly2C);
+
+                default:
+                    return UINT16_MAX;
+            }
+        }
+
+        uint16_t PowerInfo::currentSoD(double currentVoltage, uint8_t loadInCx10) {
+            return 100 - currentSoC(currentVoltage, loadInCx10);
         }
     }
 }
